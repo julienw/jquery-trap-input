@@ -5,6 +5,8 @@
 		console.log("e ", e);
 		console.log("this ", this);
 		
+		e.preventDefault();
+		
 		if (e.keyCode === 9) {
 			var goReverse = !!(e.shiftKey);
 			processTab(this, e.target, goReverse);
@@ -12,7 +14,26 @@
 	}
 	
 	function processTab(container, elt, goReverse) {
+		var $focussable = getFocusableElementsInContainer(container);
+		var index = $focussable.index(elt);
+			nextIndex = index + 1,
+			prevIndex = index - 1;
+		switch(index) {
+			case -1:
+				return;
+			case 0:
+				prevIndex = $focussable.length - 1;
+				break;
+			case ($focussable.length - 1):
+				nextIndex = 0;
+				break;
+		}
+						
+		if (goReverse) {
+			nextIndex = prevIndex;
+		}
 		
+		$focussable.eq(nextIndex).focus();
 	}
 	
 	function filterSpeciallyFocusable() {
@@ -37,7 +58,10 @@
 		var normallyFocussable = $container.find("a:visible, :input:visible");
 		var speciallyFocusable = $container
 			.find("[tabindex]:visible")
-			.filter(filterSpeciallyFocusable);
+			.filter(filterSpeciallyFocusable)
+			.sort(sortSpeciallyFocusable);
+			
+		return speciallyFocusable.add(normallyFocussable);
 		
 	}
 	
