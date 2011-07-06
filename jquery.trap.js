@@ -1,6 +1,22 @@
+/*
+Copyright (c) 2011, Julien Wajsberg <felash@gmail.com>
+All rights reserved.
 
+Official repository: https://github.com/julienw/jquery-trap-input
 
-;(function( $ ){
+Redistribution and use in source and binary forms, with or without
+modification, are permitted without condition.
+
+Although that's not an obligation, I would appreciate that you provide a
+link to the official repository.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
+*/
+
+(function( $ ){
+/*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
+
 	function onkeypress(e) {
 		console.log("e ", e);
 		console.log("this ", this);
@@ -15,7 +31,7 @@
 	
 	function processTab(container, elt, goReverse) {
 		var $focussable = getFocusableElementsInContainer(container);
-		var index = $focussable.index(elt);
+		var index = $focussable.index(elt),
 			nextIndex = index + 1,
 			prevIndex = index - 1;
 		switch(index) {
