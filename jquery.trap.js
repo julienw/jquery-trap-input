@@ -1,42 +1,49 @@
 
 
 ;(function( $ ){
-	function onfocusin(e) {
-		console.log("onfocusin e ", e);
-		console.log("onfocusin this ", this);
+	function onkeypress(e) {
+		console.log("e ", e);
+		console.log("this ", this);
 		
-		var $this = $(this);
-		
-		var firstFocus = $this.data("firstFocus");
-		if (! firstFocus) {
-			$this.data("firstFocus", e.target);
+		if (e.keyCode === 9) {
+			var goReverse = !!(e.shiftKey);
+			processTab(this, e.target, goReverse);
 		}
-		$this.data("gotFocusIn", true);
-		setTimeout(function() { $this.removeData("gotFocusIn");}, 20);
 	}
 	
-	function onfocusout(e) {
-		console.log("onfocusout e ", e);
-		console.log("onfocusout this ", this);
+	function processTab(container, elt, goReverse) {
 		
-		setTimeout($.proxy(checkFocusIn, $(this)), 0);
 	}
 	
-	function checkFocusIn() {
-		console.log("checkFocusIn");
-		if (!this.data("gotFocusIn")) {
-			console.log("we got out of the trapping element");
-			var firstFocus = this.data("firstFocus");
-			$(firstFocus).focus();
-			
+	function filterSpeciallyFocusable() {
+		return this.tabindex > -1;
+	}
+	
+	function sortSpeciallyFocusable(a, b) {
+		var aTab = a.tabIndex;
+		var bTab = b.tabIndex;
+		
+		if (aTab < bTab) {
+			return -1;
+		} else if (bTab < aTab) {
+			return 1;
+		} else {
+			return 0;
 		}
-		this.removeData("gotFocusIn");
 	}
 	
+	function getFocusableElementsInContainer(container) {
+		var $container = $(container);
+		var normallyFocussable = $container.find("a:visible, :input:visible");
+		var speciallyFocusable = $container
+			.find("[tabindex]:visible")
+			.filter(filterSpeciallyFocusable);
+		
+	}
 	
 	function trap() {
-		this.focusin(onfocusin);
-		this.focusout(onfocusout);
+		this.keypress(onkeypress);
+		return this;
 	}
 	$.fn.trap = trap;
 })( jQuery );
