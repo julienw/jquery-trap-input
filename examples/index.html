@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+		<script src='jquery.trap.js'></script>
+	<script>
+	function _onfocus(e) {
+		console.log("e ", e);
+		console.log("this ", this);
+	}
+	
+	function init() {
+		$(".trap").trap();
+		
+		var elt = $("#second").get(0);
+//		elt.addEventListener("focus", _onfocus, true);
+		console.log("init");
+	}
+	
+	window.onload = init;
+	</script>
+	</head>
+<body>
+<div id='first'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+
+</div>
+<div id='second' class='trap'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+
+</div>
+
+<div id='third' class='trap'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+
+</div>
+
+</body>
+
+</html>
