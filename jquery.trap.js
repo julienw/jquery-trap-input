@@ -18,9 +18,6 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 /*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
 
 	function onkeypress(e) {
-		console.log("e ", e);
-		console.log("this ", this);
-		
 		e.preventDefault();
 		
 		if (e.keyCode === 9) {
@@ -82,8 +79,16 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	}
 	
 	function trap() {
-		this.keypress(onkeypress);
-		return this;
+		return this.keypress(onkeypress);
 	}
-	$.fn.trap = trap;
+	
+	function untrap() {
+		return this.unbind('keypress', onkeypress);
+	}
+	
+	$.fn.extend({
+		trap: trap,
+		untrap: untrap
+	});
+	
 })( jQuery );
