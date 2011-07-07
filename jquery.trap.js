@@ -50,7 +50,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	}
 	
 	function filterSpeciallyFocusable() {
-		return this.tabindex > -1;
+		return this.tabIndex > -1;
 	}
 	
 	function sortSpeciallyFocusable(a, b) {
