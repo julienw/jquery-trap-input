@@ -5,20 +5,11 @@
 		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
 		<script src='../jquery.trap.js'></script>
 	<script>
-	function _onfocus(e) {
-		console.log("e ", e);
-		console.log("this ", this);
-	}
-	
 	function init() {
 		$(".trap").trap();
-		
-		var elt = $("#second").get(0);
-//		elt.addEventListener("focus", _onfocus, true);
-		console.log("init");
 	}
 	
-	window.onload = init;
+	$(init);
 	</script>
 	</head>
 <body>

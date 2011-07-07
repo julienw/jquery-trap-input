@@ -1,0 +1,101 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+		<script src='../jquery.trap.js'></script>
+	<script>
+	function init() {
+		$(".trap").trap();
+		$(".focusme").focus(function() {
+			$(this).append("<a href='#'>this link is dynamically added</a>")
+				.append("<span tabIndex='0'>this span too, with tabIndex=0 as attribute</span>")
+				.append("<span class='focussable'>this span too, with tabIndex=0 added as dom property</span>")
+				.find("span.focussable").prop("tabIndex", 0);
+		}).blur(function() {
+			$(this).empty();
+		});
+	}
+	
+	$(init);
+	
+	</script>
+	
+	<style>
+		.container {
+			background-color: #e8e8e8;
+			border: 1px solid #ff8888;
+			padding: .5em 1em;
+			margin: .5em;
+		}
+		
+		.trap {
+			border: 2px solid #ff3333;
+		}	
+	</style>
+	</head>
+<body>
+<div id='first' class='container'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable</span>
+<span tabIndex="0">I'm too !</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visiblity: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+</div>
+
+</div>
+<div id='second' class='trap container'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable</span>
+<span tabIndex="0">I'm too !</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visiblity: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+</div>
+
+<div id='third' class='container'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable</span>
+<span tabIndex="0">I'm too !</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visiblity: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+</div>
+
+</body>
+
+</html>
