@@ -53,9 +53,9 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		return this.tabIndex > -1;
 	}
 	
-	function sortSpeciallyFocusable(a, b) {
-		var aTab = a.tabIndex;
-		var bTab = b.tabIndex;
+	function sortFocusable(a, b) {
+		var aTab = a.t;
+		var bTab = b.t;
 		
 		if (aTab < bTab) {
 			return -1;
@@ -68,13 +68,32 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	
 	function getFocusableElementsInContainer(container) {
 		var $container = $(container);
-		var normallyFocussable = $container.find("a:visible, :input:visible");
-		var speciallyFocusable = $container
+		var result = [];
+		$container.find("a:visible, :input:visible:enabled").not("[tabindex]")
+			.each(function(i, val) {
+				result.push({
+					v: val, // value
+					t: 0 // tabIndex
+				});
+			});
+			
+		$container
 			.find("[tabindex]:visible")
 			.filter(filterSpeciallyFocusable)
-			.sort(sortSpeciallyFocusable);
+			.each(function(i, val) {
+				result.push({
+					v: val, // value
+					t: val.tabIndex // tabIndex
+				});
+			});
+		
+		result = result.sort(sortFocusable)
+			.map(function(val) {
+				return val.v;
+			});
 			
-		return speciallyFocusable.add(normallyFocussable);
+		
+		return $(result);
 		
 	}
 	
