@@ -30,14 +30,15 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		var $focussable = getFocusableElementsInContainer(container);
 		var index = $focussable.index(elt),
 			nextIndex = index + 1,
-			prevIndex = index - 1;
+			prevIndex = index - 1,
+			lastIndex = $focussable.length - 1;
 		switch(index) {
 			case -1:
 				return;
 			case 0:
-				prevIndex = $focussable.length - 1;
+				prevIndex = lastIndex;
 				break;
-			case ($focussable.length - 1):
+			case lastIndex:
 				nextIndex = 0;
 				break;
 		}
