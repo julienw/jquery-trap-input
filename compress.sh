@@ -6,10 +6,11 @@
 IN='jquery.trap.js'
 OUT='jquery.trap.min.js'
 
+SIZE_SOURCE=`cat "$IN" | wc -c`
 SIZE_MIN=`uglifyjs "$IN" --extra --unsafe | tee "$OUT" | wc -c`
 SIZE_GZIP=`gzip -nfc --best "$OUT" | wc -c`
 
-echo $SIZE_MIN bytes minified, $SIZE_GZIP bytes gzipped
+echo $SIZE_SOURCE bytes unminified, $SIZE_MIN bytes minified, $SIZE_GZIP bytes gzipped
 
 if [ "$1" == "--test" ]; then
     rm "$OUT"
