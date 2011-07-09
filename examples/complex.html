@@ -6,7 +6,6 @@
 		<script src='../jquery.trap.js'></script>
 	<script>
 	function init() {
-		$(".trap").trap();
 		$(".focusme").focus(function() {
 			var $this = $(this);
 			if (!$this.data("expanded")) {
@@ -15,6 +14,18 @@
 					.append("<span class='focussable'>this span too, with tabIndex=0 added as dom property</span>")
 					.find("span.focussable").prop("tabIndex", 0);
 				$this.data("expanded", true);
+			}
+		});
+		$("button").click(function() {
+			var $this = $(this),
+				$container = $this.closest(".container");
+			
+			if ($container.isTrapping()) {
+				$container.untrap();
+				$this.text("trap");
+			} else {
+				$container.trap();
+				$this.text("untrap");
 			}
 		});
 	}
@@ -33,11 +44,19 @@
 		
 		.trap {
 			border: 2px solid #ff3333;
-		}	
+		}
+		
+		:focus {
+			background-color: black;
+			color: white;
+		}
 	</style>
 	</head>
 <body>
 <div id='first' class='container'>
+	<div>
+		<button>trap</button>
+	</div>
 <a href='http://perdu.com'>perdu</a>
 <a href='http://google.fr'>google</a>
 <a href='http://lemonde.fr'>le monde</a>
@@ -53,12 +72,15 @@
 <span tabIndex="-1">I'm not !</span>
 <span>I'm not either!</span>
 <a href='#' style='display:none'>I should not be displayed and not focussable</a>
-<a href='#' style='visiblity: hidden'>as for me</a>
-<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
 </div>
 
 </div>
 <div id='second' class='trap container'>
+	<div>
+		<button>trap</button>
+	</div>
 <a href='http://perdu.com'>perdu</a>
 <a href='http://google.fr'>google</a>
 <a href='http://lemonde.fr'>le monde</a>
@@ -74,11 +96,14 @@
 <span tabIndex="-1">I'm not !</span>
 <span>I'm not either!</span>
 <a href='#' style='display:none'>I should not be displayed and not focussable</a>
-<a href='#' style='visiblity: hidden'>as for me</a>
-<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
 </div>
 
 <div id='third' class='container'>
+	<div>
+		<button>trap</button>
+	</div>
 <a href='http://perdu.com'>perdu</a>
 <a href='http://google.fr'>google</a>
 <a href='http://lemonde.fr'>le monde</a>
@@ -94,8 +119,8 @@
 <span tabIndex="-1">I'm not !</span>
 <span>I'm not either!</span>
 <a href='#' style='display:none'>I should not be displayed and not focussable</a>
-<a href='#' style='visiblity: hidden'>as for me</a>
-<a href='#' tabIndex="0" style='visiblity: hidden'>and me ?</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
 </div>
 
 </body>

@@ -16,25 +16,28 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 
 (function( $ ){
 /*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
+	
+	var DATA_ISTRAPPING_KEY = "trap.isTrapping";
 
 	function onkeypress(e) {
-		e.preventDefault();
-		
 		if (e.keyCode === 9) {
 			var goReverse = !!(e.shiftKey);
-			processTab(this, e.target, goReverse);
+			if (processTab(this, e.target, goReverse)) {
+				e.preventDefault();
+			}
 		}
 	}
 	
 	function processTab(container, elt, goReverse) {
-		var $focussable = getFocusableElementsInContainer(container);
-		var index = $focussable.index(elt),
+		var $focussable = getFocusableElementsInContainer(container),
+			index = $focussable.index(elt),
 			nextIndex = index + 1,
 			prevIndex = index - 1,
 			lastIndex = $focussable.length - 1;
+
 		switch(index) {
 			case -1:
-				return;
+				return false;
 			case 0:
 				prevIndex = lastIndex;
 				break;
@@ -48,29 +51,23 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		}
 		
 		$focussable.eq(nextIndex).focus();
+		return true;
 	}
 	
 	function filterSpeciallyFocusable() {
-		return this.tabIndex > -1;
+		return this.tabIndex > 0;
 	}
 	
 	function sortFocusable(a, b) {
-		var aTab = a.t;
-		var bTab = b.t;
-		
-		if (aTab < bTab) {
-			return -1;
-		} else if (bTab < aTab) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return a.t - b.t;
 	}
 	
 	function getFocusableElementsInContainer(container) {
 		var $container = $(container);
 		var result = [];
-		$container.find("a:visible, :input:visible:enabled").not("[tabindex]")
+		$container.find("a, :input:enabled, [tabindex=0]")
+			.filter(":visible")
+			.not(filterSpeciallyFocusable)
 			.each(function(i, val) {
 				result.push({
 					v: val, // value
@@ -79,7 +76,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 			});
 			
 		$container
-			.find("[tabindex]:visible")
+			.find("[tabindex]")
+			.filter(":visible")
 			.filter(filterSpeciallyFocusable)
 			.each(function(i, val) {
 				result.push({
@@ -88,10 +86,11 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 				});
 			});
 		
-		result = result.sort(sortFocusable)
-			.map(function(val) {
+		result = $.map(result.sort(sortFocusable), // needs stable sort
+			function(val) {
 				return val.v;
-			});
+			}
+		);
 			
 		
 		return $(result);
@@ -99,16 +98,25 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	}
 	
 	function trap() {
-		return this.keypress(onkeypress);
+		this.keypress(onkeypress);
+		this.data(DATA_ISTRAPPING_KEY, true);
+		return this;
 	}
 	
 	function untrap() {
-		return this.unbind('keypress', onkeypress);
+		this.unbind('keypress', onkeypress);
+		this.removeData(DATA_ISTRAPPING_KEY);
+		return this;
+	}
+	
+	function isTrapping() {
+		return !!this.data(DATA_ISTRAPPING_KEY);
 	}
 	
 	$.fn.extend({
 		trap: trap,
-		untrap: untrap
+		untrap: untrap,
+		isTrapping: isTrapping
 	});
 	
 })( jQuery );
