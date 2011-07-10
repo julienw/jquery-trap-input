@@ -30,28 +30,37 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	
 	function processTab(container, elt, goReverse) {
 		var $focussable = getFocusableElementsInContainer(container),
-			index = $focussable.index(elt),
-			nextIndex = index + 1,
-			prevIndex = index - 1,
+			curElt = elt,
+			index, nextIndex, prevIndex, lastIndex;
+		
+		do {
+		
+			index = $focussable.index(curElt);
+			nextIndex = index + 1;
+			prevIndex = index - 1;
 			lastIndex = $focussable.length - 1;
 
-		switch(index) {
-			case -1:
-				return false;
-			case 0:
-				prevIndex = lastIndex;
-				break;
-			case lastIndex:
-				nextIndex = 0;
-				break;
-		}
-						
-		if (goReverse) {
-			nextIndex = prevIndex;
-		}
+			switch(index) {
+				case -1:
+					return false;
+				case 0:
+					prevIndex = lastIndex;
+					break;
+				case lastIndex:
+					nextIndex = 0;
+					break;
+			}
+							
+			if (goReverse) {
+				nextIndex = prevIndex;
+			}
+			
+			curElt = $focussable.eq(nextIndex);
+			curElt.focus();
 		
-		$focussable.eq(nextIndex).focus();
-		return true;
+		} while (elt === elt.ownerDocument.activeElement);
+
+		return true;		
 	}
 	
 	function filterSpeciallyFocusable() {
