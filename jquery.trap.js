@@ -59,19 +59,21 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	}
 	
 	function sortFocusable(a, b) {
-		return a.t - b.t;
+		return (a.t - b.t) || (a.i - b.i);
 	}
 	
 	function getFocusableElementsInContainer(container) {
 		var $container = $(container);
-		var result = [];
+		var result = [],
+			cnt = 0;
 		$container.find("a, :input:enabled, [tabindex=0]")
 			.filter(":visible")
 			.not(filterSpeciallyFocusable)
 			.each(function(i, val) {
 				result.push({
 					v: val, // value
-					t: 0 // tabIndex
+					t: 0, // tabIndex
+					i: cnt++ // index for stable sort
 				});
 			});
 			
@@ -82,7 +84,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 			.each(function(i, val) {
 				result.push({
 					v: val, // value
-					t: val.tabIndex // tabIndex
+					t: val.tabIndex, // tabIndex
+					i: cnt++ // index
 				});
 			});
 		
