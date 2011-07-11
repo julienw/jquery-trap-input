@@ -72,3 +72,9 @@ Here is a simple example
 ```
 
 See the `examples` directory for some more examples.
+
+Useful links
+----
+* [Source code repository](https://github.com/julienw/jquery-trap-input)
+* [Home page](http://julienw.github.com/jquery-trap-input) (nothing yet)
+* [WAI's aria practices document](http://www.w3.org/WAI/PF/aria-practices/#modal_dialog)
