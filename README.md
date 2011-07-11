@@ -32,9 +32,11 @@ Here is a simple example
 		<script src='jquery.trap.min.js'></script>
 	<script>
 	function init() {
-		// this is the init function
-		// we find all elements with the "trap" class and we call the
-		// "trap" function on it
+		/* this is the init function
+		 *we find all elements with the "trap" class and we call the
+		 * "trap" function on it.
+		 * Yes, this is _that_ simple.
+		 */
 		$(".trap").trap();
 	}
 	
