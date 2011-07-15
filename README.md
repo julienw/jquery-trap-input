@@ -12,9 +12,12 @@ This means that when a user navigates in the dialog using the
 `tab` key (with or without `shift`), the focus should __not__ go
 outside of the dialog.
 
-I found no library implementing this, especially [jQuery UI Dialog](http://jqueryui.com/demos/dialog/),
-although I think it is a must for the accessibility of our rich
-web pages.
+[jQuery UI Dialog](http://jqueryui.com/demos/dialog/) implements this
+when the dialog is modal, but I found this in no other libraries.
+
+I think it is a must for the accessibility of our rich web pages, so I
+made this plugin because I thought at first that jQuery UI didn't
+implement this.
 
 Usage
 ----
