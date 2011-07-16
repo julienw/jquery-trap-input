@@ -21,10 +21,10 @@
 				$container = $this.closest(".container");
 			
 			if ($container.isTrapping()) {
-				$container.untrap();
+				$container.untrap().removeClass('trap');;
 				$this.text("trap");
 			} else {
-				$container.trap();
+				$container.trap().addClass('trap');;
 				$this.text("untrap");
 			}
 		});
@@ -77,7 +77,7 @@
 </div>
 
 </div>
-<div id='second' class='trap container'>
+<div id='second' class='container'>
 	<div>
 		<button>trap</button>
 	</div>
