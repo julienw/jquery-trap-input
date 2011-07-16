@@ -3,6 +3,13 @@
 DIR=website
 BUILD_DIR=website-dist
 
+if which upskirt > /dev/null ; then
+    echo "we found upskirt, that's good, continuing."
+else
+    echo "upskirt was not found in the PATH, exiting."
+    exit
+fi
+
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cp -r $DIR/js $DIR/css $BUILD_DIR/
