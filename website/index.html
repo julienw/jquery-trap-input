@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head>
+        <title>jQuery trap input plugin</title>
+        <link rel='stylesheet' href='css/sh_style.css' />
+
+    </head>
+    <body onload='sh_highlightDocument();'>
+
+
+<h1>jQuery trap input plugin</h1>
+
+<p>The jQuery trap input plugin implements input trapping as described by
+the Web Accessibility Initiative.</p>
+
+<h2>Why is this useful ?</h2>
+
+<p>As explained in <a href="http://www.w3.org/WAI/PF/aria-practices/#modal_dialog">the W3C document aria-practices in the WAI</a>,
+modal dialogs should trap the keyboard input.</p>
+
+<p>This means that when a user navigates in the dialog using the
+<code>tab</code> key (with or without <code>shift</code>), the focus should <strong>not</strong> go
+outside of the dialog.</p>
+
+<p><a href="http://jqueryui.com/demos/dialog/">jQuery UI Dialog</a> implements this
+when the dialog is modal, but I found this in no other libraries.</p>
+
+<p>I think it is a must for the accessibility of our rich web pages, so I
+made this plugin because I thought at first that jQuery UI didn't
+implement this.</p>
+
+<h2>Usage</h2>
+
+<p>Include jQuery and this plugin. Then, call the <code>trap</code> function on the element 
+which should trap the tabbing.</p>
+
+<p>Here is a simple example</p>
+
+<pre class="sh_html">&lt;!doctype html&gt;
+
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'&gt;&lt;/script&gt;
+        &lt;script src='jquery.trap.min.js'&gt;&lt;/script&gt;
+    &lt;script&gt;
+    function init() {
+        /* this is the init function
+         *we find all elements with the &quot;trap&quot; class and we call the
+         * &quot;trap&quot; function on it.
+         * Yes, this is _that_ simple.
+         */
+        $(&quot;.trap&quot;).trap();
+    }
+
+    // on dom content ready
+    $(init);
+    &lt;/script&gt;
+    &lt;/head&gt;
+&lt;body&gt;
+&lt;div id='first'&gt;
+&lt;a href='http://perdu.com'&gt;perdu&lt;/a&gt;
+&lt;a href='http://google.fr'&gt;google&lt;/a&gt;
+&lt;a href='http://lemonde.fr'&gt;le monde&lt;/a&gt;
+
+&lt;/div&gt;
+&lt;!-- once the focus get inside, it will be trapped --&gt;
+&lt;div id='second' class='trap'&gt;
+&lt;a href='http://perdu.com'&gt;perdu&lt;/a&gt;
+&lt;a href='http://google.fr'&gt;google&lt;/a&gt;
+&lt;a href='http://lemonde.fr'&gt;le monde&lt;/a&gt;
+
+&lt;/div&gt;
+
+&lt;div id='third'&gt;
+&lt;a href='http://perdu.com'&gt;perdu&lt;/a&gt;
+&lt;a href='http://google.fr'&gt;google&lt;/a&gt;
+&lt;a href='http://lemonde.fr'&gt;le monde&lt;/a&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+
+<p>See the <code>examples</code> directory for some more examples.</p>
+
+<h2>Useful links</h2>
+
+<ul>
+<li><a href="https://github.com/julienw/jquery-trap-input">Source code repository</a></li>
+<li><a href="http://julienw.github.com/jquery-trap-input">Home page</a> (nothing yet)</li>
+<li><a href="http://www.w3.org/WAI/PF/aria-practices/#modal_dialog">WAI's aria practices document</a></li>
+</ul>
+
+<script src='js/sh_main.min.js'></script>
+<script src='js/sh_html.min.js'></script>
+
+</body>
+</html>
+
