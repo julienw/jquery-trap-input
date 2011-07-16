@@ -14,7 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
 IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 */
 
-(function( $ ){
+(function( $, undefined ){
 /*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
 	
 	var DATA_ISTRAPPING_KEY = "trap.isTrapping";
@@ -75,7 +75,9 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		var $container = $(container);
 		var result = [],
 			cnt = 0;
-		$container.find("a, :input:enabled, [tabindex=0]")
+		
+		// leaving away command and details for now
+		$container.find("a[href], link[href], [draggable=true], [contenteditable=true], :input:enabled, [tabindex=0]")
 			.filter(":visible")
 			.not(filterSpeciallyFocusable)
 			.each(function(i, val) {
@@ -110,13 +112,13 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 	}
 	
 	function trap() {
-		this.keypress(onkeypress);
+		this.keydown(onkeypress);
 		this.data(DATA_ISTRAPPING_KEY, true);
 		return this;
 	}
 	
 	function untrap() {
-		this.unbind('keypress', onkeypress);
+		this.unbind('keydown', onkeypress);
 		this.removeData(DATA_ISTRAPPING_KEY);
 		return this;
 	}
