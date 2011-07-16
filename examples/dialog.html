@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<link rel='stylesheet' href='../lib/jquery/themes/base/jquery.ui.all.css' />
+<style>
+:focus {
+	background-color: black;
+	color: white;
+}
+
+</style>
+<script src='../lib/jquery/jquery-1.6.2.dev.js'></script>
+<script src='../lib/jquery/jquery-ui-1.8.14.dev.js'></script>
+<script src='../jquery.trap.js'></script>
+<script>
+
+function onDialogClose() {
+	$(this).untrap();
+}
+
+function onDialogOpen() {
+	$(this).trap();
+}
+
+function init() {
+	$("#trapping-dialog").dialog({
+		autoOpen: false,
+		close: onDialogClose,
+		open: onDialogOpen
+	});
+	
+	$("#modal-dialog").dialog({
+		autoOpen: false,
+		modal: true
+	});
+	$("#dialog").dialog({
+		autoOpen: false
+	});
+
+	$("#open-trapping-dialog-button").click(function() {
+		$("#trapping-dialog").dialog("open");
+	});
+	$("#open-modal-dialog-button").click(function() {
+		$("#modal-dialog").dialog("open");
+	});
+	$("#open-dialog-button").click(function() {
+		$("#dialog").dialog("open");
+	});
+}
+$(init);
+</script>
+</head>
+<body>
+<button id='open-trapping-dialog-button'>Open the trapping dialog</button>
+<button id='open-modal-dialog-button'>Open the modal dialog</button>
+<button id='open-dialog-button'>Open the normal dialog</button>
+<div id='trapping-dialog' title='Dialog demo with trapping'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me (tabindex=0) !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable (tabindex=4)</span>
+<span tabIndex="0">I'm too (tabindex=0)!</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
+</div>
+<div id='modal-dialog' title='Default modal dialog demo'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me (tabindex=0) !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable (tabindex=4)</span>
+<span tabIndex="0">I'm too (tabindex=0)!</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
+</div>
+<div id='dialog' title='Default modal dialog demo'>
+<a href='http://perdu.com'>perdu</a>
+<a href='http://google.fr'>google</a>
+<a href='http://lemonde.fr'>le monde</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) but I am also a link so I am already</a>
+<a href="#" tabIndex="2">I'm focussable (tabindex=2) too but I am also a link so I am already</a>
+<div tabIndex="0" class='focusme'>Focus me (tabindex=0) !</div>
+<div>
+<input type='text' name='test' id='test' />
+<textarea name='test2' id='test2'></textarea>
+</div>
+<span tabIndex="4">I'm focussable (tabindex=4)</span>
+<span tabIndex="0">I'm too (tabindex=0)!</span>
+<span tabIndex="-1">I'm not !</span>
+<span>I'm not either!</span>
+<a href='#' style='display:none'>I should not be displayed and not focussable</a>
+<a href='#' style='visibility: hidden'>as for me</a>
+<a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
+</div>
+<div><a href='#'>another link outside the dialog</a></div>
+</body>
+</html>
