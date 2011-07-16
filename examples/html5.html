@@ -1,0 +1,113 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script src='../lib/jquery/jquery-1.6.2.dev.js'></script>
+		<script src='../jquery.trap.js'></script>
+	<script>
+	function init() {
+
+		$("button").click(function() {
+			var $this = $(this),
+				$container = $this.closest(".container");
+			
+			if ($container.isTrapping()) {
+				$container.untrap().removeClass('trap');
+				$this.text("trap");
+			} else {
+				$container.trap().addClass('trap');
+				$this.text("untrap");
+			}
+		});
+	}
+	
+	$(init);
+	
+	</script>
+	
+	<style>
+		.container {
+			background-color: #e8e8e8;
+			border: 1px solid #ff8888;
+			padding: .5em 1em;
+			margin: .5em;
+		}
+		
+		.trap {
+			border: 2px solid #ff3333;
+		}
+		
+		:focus {
+			background-color: black;
+			color: white;
+		}
+	</style>
+	</head>
+<body>
+<div id='first' class='container'>
+	<div>
+		<button>trap</button>
+	</div>
+<a href='http://perdu.com'>perdu</a>
+<link href='http://google.fr'>google</a>
+<details>
+<summary>This is a details element's summary</summary>
+<div>And here are the details</div>
+</details>
+<div contenteditable='true'>This is a contenteditable div</div>
+<div draggable="true">This is a draggable div</div>
+<div>
+ <img src="shapes.png" usemap="#shapes"
+      alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star.">
+</div>
+</div>
+
+</div>
+<div id='second' class='container'>
+	<div>
+		<button>trap</button>
+	</div>
+<a href='http://perdu.com'>perdu</a>
+<link href='http://google.fr'>google</a>
+<details>
+<summary>This is a details element's summary</summary>
+<div>And here are the details</div>
+</details>
+<div contenteditable='true'>This is a contenteditable div</div>
+<div draggable="true">This is a draggable div</div>
+<div>
+ <img src="shapes.png" usemap="#shapes"
+      alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star.">
+</div>
+</div>
+
+<div id='third' class='container'>
+	<div>
+		<button>trap</button>
+	</div>
+<a href='http://perdu.com'>perdu</a>
+<link href='http://google.fr'>google</a>
+<details>
+<summary>This is a details element's summary</summary>
+<div>And here are the details</div>
+</details>
+<div contenteditable='true'>This is a contenteditable div</div>
+<div draggable="true">This is a draggable div</div>
+<div>
+ <img src="shapes.png" usemap="#shapes"
+      alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star.">
+</div>
+</div>
+
+ <map name="shapes">
+  <area shape="rect" coords="50,50,100,100"> <!-- the hole in the red box -->
+  <area shape="rect" coords="25,25,125,125" href="red.html" alt="Red box.">
+  <area shape="circle" coords="200,75,50" href="green.html" alt="Green circle.">
+  <area shape="poly" coords="325,25,262,125,388,125" href="blue.html" alt="Blue triangle.">
+  <area shape="poly" coords="450,25,435,60,400,75,435,90,450,125,465,90,500,75,465,60"
+        href="yellow.html" alt="Yellow star.">
+ </map>
+
+</body>
+
+</html>
