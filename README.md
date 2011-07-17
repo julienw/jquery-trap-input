@@ -17,8 +17,8 @@ when the dialog is modal, in a limited way, but I found this in no other
 libraries.
 
 This implementation is better than the one is jQuery UI
-Dialog: faster, and it works with tabIndex attributes (see the dialog
-example).
+Dialog: faster, it works with tabIndex attributes (see the dialog
+example), and it works with other browsers than Firefox.
 
 This library does not work with usemaps for now.
 
