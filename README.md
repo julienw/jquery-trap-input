@@ -13,7 +13,14 @@ This means that when a user navigates in the dialog using the
 outside of the dialog.
 
 [jQuery UI Dialog](http://jqueryui.com/demos/dialog/) implements this
-when the dialog is modal, but I found this in no other libraries.
+when the dialog is modal, in a limited way, but I found this in no other
+libraries.
+
+This implementation is better than the one is jQuery UI
+Dialog: faster, it works with tabIndex attributes (see the dialog
+example), and it works with other browsers than Firefox.
+
+This library does not work with usemaps for now.
 
 I think it is a must for the accessibility of our rich web pages, so I
 made this plugin because I thought at first that jQuery UI didn't

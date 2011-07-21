@@ -15,11 +15,11 @@
 <script>
 
 function onDialogClose() {
-	$(this).untrap();
+	$(this).parent().untrap();
 }
 
 function onDialogOpen() {
-	$(this).trap();
+	$(this).parent().trap();
 }
 
 function init() {
