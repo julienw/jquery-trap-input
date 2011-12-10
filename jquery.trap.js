@@ -24,6 +24,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 			var goReverse = !!(e.shiftKey);
 			if (processTab(this, e.target, goReverse)) {
 				e.preventDefault();
+				e.stopPropagation();
 			}
 		}
 	}
