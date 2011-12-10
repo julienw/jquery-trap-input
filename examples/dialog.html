@@ -10,7 +10,7 @@
 
 </style>
 <script src='../lib/jquery/jquery-1.6.2.dev.js'></script>
-<script src='../lib/jquery/jquery-ui-1.8.14.dev.js'></script>
+<script src='../lib/jquery/jquery-ui-1.8.16.dev.js'></script>
 <script src='../jquery.trap.js'></script>
 <script>
 
@@ -112,5 +112,7 @@ $(init);
 <a href='#' tabIndex="0" style='visibility: hidden'>and me ?</a>
 </div>
 <div><a href='#'>another link outside the dialog</a></div>
+<p>Recent versions of jQuery UI (since 1.8.15 or 1.8.16, I'm not sure) are better, but still don't work correctly when tabIndex
+attributes are set. Also, their algorithm is somewhat slower, even if users shouldn't notice this.</p>
 </body>
 </html>
