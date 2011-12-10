@@ -63,8 +63,12 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		return true;		
 	}
 	
-	function filterSpeciallyFocusable() {
+	function filterKeepSpeciallyFocusable() {
 		return this.tabIndex > 0;
+	}
+	
+	function filterKeepNormalElements() {
+		return !this.tabIndex; // true if no tabIndex or tabIndex == 0
 	}
 	
 	function sortFocusable(a, b) {
@@ -79,7 +83,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		// leaving away command and details for now
 		$container.find("a[href], link[href], [draggable=true], [contenteditable=true], :input:enabled, [tabindex=0]")
 			.filter(":visible")
-			.not(filterSpeciallyFocusable)
+			.filter(filterKeepNormalElements)
 			.each(function(i, val) {
 				result.push({
 					v: val, // value
@@ -91,7 +95,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		$container
 			.find("[tabindex]")
 			.filter(":visible")
-			.filter(filterSpeciallyFocusable)
+			.filter(filterKeepSpeciallyFocusable)
 			.each(function(i, val) {
 				result.push({
 					v: val, // value
