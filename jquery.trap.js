@@ -24,10 +24,13 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 			var goReverse = !!(e.shiftKey);
 			if (processTab(this, e.target, goReverse)) {
 				e.preventDefault();
+				e.stopPropagation();
 			}
 		}
 	}
 	
+	// will return true if we could process the tab event
+	// otherwise, return false
 	function processTab(container, elt, goReverse) {
 		var $focussable = getFocusableElementsInContainer(container),
 			curElt = elt,
@@ -42,7 +45,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 
 			switch(index) {
 				case -1:
-					return false;
+					return false; // that's strange, let the browser do its job
 				case 0:
 					prevIndex = lastIndex;
 					break;
