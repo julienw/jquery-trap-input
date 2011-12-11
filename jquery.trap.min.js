@@ -1,4 +1,4 @@
-/*
+/*!
 Copyright (c) 2011, Julien Wajsberg <felash@gmail.com>
 All rights reserved.
 
