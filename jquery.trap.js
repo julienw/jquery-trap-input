@@ -3,6 +3,14 @@ Copyright (c) 2011, Julien Wajsberg <felash@gmail.com>
 All rights reserved.
 
 Official repository: https://github.com/julienw/jquery-trap-input
+License is there: https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
+This is version 1.1.0.
+*/
+
+(function( $, undefined ){
+
+/*
+(this comment is after the first line of code so that uglifyjs removes it)
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted without condition.
@@ -14,7 +22,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
 IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 */
 
-(function( $, undefined ){
 /*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
 	
 	var DATA_ISTRAPPING_KEY = "trap.isTrapping";
