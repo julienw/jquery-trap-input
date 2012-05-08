@@ -1,8 +1,16 @@
-/*
-Copyright (c) 2011, Julien Wajsberg <felash@gmail.com>
+/*!
+Copyright (c) 2011, 2012 Julien Wajsberg <felash@gmail.com>
 All rights reserved.
 
 Official repository: https://github.com/julienw/jquery-trap-input
+License is there: https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
+This is version 1.1.0.
+*/
+
+(function( $, undefined ){
+
+/*
+(this comment is after the first line of code so that uglifyjs removes it)
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted without condition.
@@ -14,8 +22,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
 IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 */
 
-(function( $, undefined ){
-/*jshint boss: true, bitwise: true, curly: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
+/*jshint boss: true, bitwise: true, curly: true, expr: true, newcap: true, noarg: true, nonew: true, latedef: true, regexdash: true */
 	
 	var DATA_ISTRAPPING_KEY = "trap.isTrapping";
 
@@ -58,8 +65,12 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 				nextIndex = prevIndex;
 			}
 			
-			curElt = $focussable.eq(nextIndex);
-			curElt.focus();
+			curElt = $focussable.get(nextIndex);
+            // IE sometimes throws when an element is not visible
+            try {
+                curElt.focus();
+            } catch(e) {
+            }
 		
 		} while (elt === elt.ownerDocument.activeElement);
 
@@ -82,6 +93,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		var $container = $(container);
 		var result = [],
 			cnt = 0;
+
+        fixIndexSelector.enable && fixIndexSelector.enable();
 		
 		// leaving away command and details for now
 		$container.find("a[href], link[href], [draggable=true], [contenteditable=true], :input:enabled, [tabindex=0]")
@@ -106,6 +119,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 					i: cnt++ // index
 				});
 			});
+
+        fixIndexSelector.disable && fixIndexSelector.disable();
 		
 		result = $.map(result.sort(sortFocusable), // needs stable sort
 			function(val) {
@@ -139,5 +154,37 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		untrap: untrap,
 		isTrapping: isTrapping
 	});
-	
+
+    // jQuery 1.6.x tabindex attr hooks management
+    // this triggers problems for tabindex attribute
+    // selectors in IE7-
+    // see https://github.com/julienw/jquery-trap-input/issues/3
+    
+   var fixIndexSelector = {};
+   (function() {
+        var tabindexKey = "tabindex";
+        var attrHooks = $.attrHooks,
+            tabindexAttrHook = attrHooks[tabindexKey],
+            sizzleAttrHandle = $.expr.attrHandle;
+            
+        function fixSizzleAttrHook() {
+            // in jQ <= 1.6.x, we add to Sizzle the attrHook from jQuery's attr method
+            sizzleAttrHandle[tabindexKey] = sizzleAttrHandle.tabIndex = attrHooks.tabIndex.get;
+        }
+        
+        function unfixSizzleAttrHook() {
+            delete sizzleAttrHandle[tabindexKey];
+            delete sizzleAttrHandle.tabIndex;
+        }
+
+        
+        if ($.find.find && $.find.attr !== $.attr) {
+            // jQuery uses Sizzle (this is jQuery >= 1.3)
+            // sizzle uses its own attribute handling (in jq 1.6.x and below)
+            fixIndexSelector = {
+                enable: fixSizzleAttrHook,
+                disable: unfixSizzleAttrHook
+            };
+        }
+    })();
 })( jQuery );

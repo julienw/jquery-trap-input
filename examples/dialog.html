@@ -9,7 +9,7 @@
 }
 
 </style>
-<script src='../lib/jquery/jquery-1.6.2.dev.js'></script>
+<script src='../lib/jquery/jquery-1.7.2.dev.js'></script>
 <script src='../lib/jquery/jquery-ui-1.8.16.dev.js'></script>
 <script src='../jquery.trap.js'></script>
 <script>
@@ -46,6 +46,16 @@ function init() {
 	$("#open-dialog-button").click(function() {
 		$("#dialog").dialog("open");
 	});
+    $(".focusme").focus(function() {
+        var $this = $(this);
+        if (!$this.data("expanded")) {
+            $this.append("<a href='#'>this link is dynamically added</a>")
+                .append("<span tabIndex='0'>this span too, with tabIndex=0 as attribute</span>")
+                .append("<span class='focussable'>this span too, with tabIndex=0 added as dom property</span>")
+                .find("span.focussable").prop("tabIndex", 0);
+            $this.data("expanded", true);
+        }
+    });
 }
 $(init);
 </script>
