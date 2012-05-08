@@ -93,6 +93,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		var $container = $(container);
 		var result = [],
 			cnt = 0;
+
+        fixIndexSelector.enable && fixIndexSelector.enable();
 		
 		// leaving away command and details for now
 		$container.find("a[href], link[href], [draggable=true], [contenteditable=true], :input:enabled, [tabindex=0]")
@@ -117,6 +119,8 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 					i: cnt++ // index
 				});
 			});
+
+        fixIndexSelector.disable && fixIndexSelector.disable();
 		
 		result = $.map(result.sort(sortFocusable), // needs stable sort
 			function(val) {
@@ -150,5 +154,37 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 		untrap: untrap,
 		isTrapping: isTrapping
 	});
-	
+
+    // jQuery 1.6.x tabindex attr hooks management
+    // this triggers problems for tabindex attribute
+    // selectors in IE7-
+    // see https://github.com/julienw/jquery-trap-input/issues/3
+    
+   var fixIndexSelector = {};
+   (function() {
+        var tabindexKey = "tabindex";
+        var attrHooks = $.attrHooks,
+            tabindexAttrHook = attrHooks[tabindexKey],
+            sizzleAttrHandle = $.expr.attrHandle;
+            
+        function fixSizzleAttrHook() {
+            // in jQ <= 1.6.x, we add to Sizzle the attrHook from jQuery's attr method
+            sizzleAttrHandle[tabindexKey] = sizzleAttrHandle.tabIndex = attrHooks.tabIndex.get;
+        }
+        
+        function unfixSizzleAttrHook() {
+            delete sizzleAttrHandle[tabindexKey];
+            delete sizzleAttrHandle.tabIndex;
+        }
+
+        
+        if ($.find.find && $.find.attr !== $.attr) {
+            // jQuery uses Sizzle (this is jQuery >= 1.3)
+            // sizzle uses its own attribute handling (in jq 1.6.x and below)
+            fixIndexSelector = {
+                enable: fixSizzleAttrHook,
+                disable: unfixSizzleAttrHook
+            };
+        }
+    })();
 })( jQuery );
