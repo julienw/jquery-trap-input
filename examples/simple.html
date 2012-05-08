@@ -2,11 +2,14 @@
 
 <html>
 	<head>
-		<script src='http://code.jquery.com/jquery-1.7.1.js'></script>
+		<script src='../lib/jquery/jquery-1.7.2.dev.js'></script>
 		<script src='../jquery.trap.js'></script>
 	<script>
 	function init() {
-		$(".trap").trap();
+        $(".trap").trap();
+        $("body").delegate("#second a", "blur", function() {
+            console.log(this, "blur");
+        });
 	}
 	
 	$(init);
