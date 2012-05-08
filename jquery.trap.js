@@ -65,8 +65,12 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 				nextIndex = prevIndex;
 			}
 			
-			curElt = $focussable.eq(nextIndex);
-			curElt.focus();
+			curElt = $focussable.get(nextIndex);
+            // IE sometimes throws when an element is not visible
+            try {
+                curElt.focus();
+            } catch(e) {
+            }
 		
 		} while (elt === elt.ownerDocument.activeElement);
 
