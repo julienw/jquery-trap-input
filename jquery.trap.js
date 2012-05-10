@@ -165,13 +165,13 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
         var tabindexKey = "tabindex";
         var sizzleAttrHandle = $.expr.attrHandle;
             
-        // this function comes directly from jQuery
+        // this function comes directly from jQuery 1.7.2 (propHooks.tabIndex.get)
         // we have to put it here if we want to support jQuery < 1.6 which
         // doesn't have an attrHooks object to reference.
         function getTabindexAttr(elem) {
             // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
             // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
-            var attributeNode = elem.getAttributeNode("tabIndex");
+            var attributeNode = elem.getAttributeNode(tabindexKey);
 
             return attributeNode && attributeNode.specified ?
                 parseInt( attributeNode.value, 10 ) :
