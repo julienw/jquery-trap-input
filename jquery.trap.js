@@ -161,43 +161,44 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
     // see https://github.com/julienw/jquery-trap-input/issues/3
     
    var fixIndexSelector = {};
-   (function() {
-        var tabindexKey = "tabindex";
-        var sizzleAttrHandle = $.expr.attrHandle;
+
+   if ($.find.find && $.find.attr !== $.attr) {
+        // jQuery uses Sizzle (this is jQuery >= 1.3)
+        // sizzle uses its own attribute handling (in jq 1.6.x and below)
+       (function() {
+            var tabindexKey = "tabindex";
+            var sizzleAttrHandle = $.expr.attrHandle;
+                
+            // this function comes directly from jQuery 1.7.2 (propHooks.tabIndex.get)
+            // we have to put it here if we want to support jQuery < 1.6 which
+            // doesn't have an attrHooks object to reference.
+            function getTabindexAttr(elem) {
+                // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
+                // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+                var attributeNode = elem.getAttributeNode(tabindexKey);
+
+                return attributeNode && attributeNode.specified ?
+                    parseInt( attributeNode.value, 10 ) :
+                    rfocusable.test( elem.nodeName ) || rclickable.test( elem.nodeName ) && elem.href ?
+                        0 :
+                        undefined;
+            }
             
-        // this function comes directly from jQuery 1.7.2 (propHooks.tabIndex.get)
-        // we have to put it here if we want to support jQuery < 1.6 which
-        // doesn't have an attrHooks object to reference.
-        function getTabindexAttr(elem) {
-            // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
-            // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
-            var attributeNode = elem.getAttributeNode(tabindexKey);
+            function fixSizzleAttrHook() {
+                // in jQ <= 1.6.x, we add to Sizzle the attrHook from jQuery's attr method
+                sizzleAttrHandle[tabindexKey] = sizzleAttrHandle.tabIndex = getTabindexAttr;
+            }
+            
+            function unfixSizzleAttrHook() {
+                delete sizzleAttrHandle[tabindexKey];
+                delete sizzleAttrHandle.tabIndex;
+            }
 
-            return attributeNode && attributeNode.specified ?
-                parseInt( attributeNode.value, 10 ) :
-                rfocusable.test( elem.nodeName ) || rclickable.test( elem.nodeName ) && elem.href ?
-                    0 :
-                    undefined;
-		}
-        
-        function fixSizzleAttrHook() {
-            // in jQ <= 1.6.x, we add to Sizzle the attrHook from jQuery's attr method
-            sizzleAttrHandle[tabindexKey] = sizzleAttrHandle.tabIndex = getTabindexAttr;
-        }
-        
-        function unfixSizzleAttrHook() {
-            delete sizzleAttrHandle[tabindexKey];
-            delete sizzleAttrHandle.tabIndex;
-        }
-
-        
-        if ($.find.find && $.find.attr !== $.attr) {
-            // jQuery uses Sizzle (this is jQuery >= 1.3)
-            // sizzle uses its own attribute handling (in jq 1.6.x and below)
+            
             fixIndexSelector = {
                 enable: fixSizzleAttrHook,
                 disable: unfixSizzleAttrHook
             };
-        }
-    })();
+        })();
+    }
 })( jQuery );
