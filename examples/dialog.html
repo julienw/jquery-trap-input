@@ -52,7 +52,7 @@ function init() {
             $this.append("<a href='#'>this link is dynamically added</a>")
                 .append("<span tabIndex='0'>this span too, with tabIndex=0 as attribute</span>")
                 .append("<span class='focussable'>this span too, with tabIndex=0 added as dom property</span>")
-                .find("span.focussable").prop("tabIndex", 0);
+                .find("span.focussable").get(0).tabIndex = 0;
             $this.data("expanded", true);
         }
     });

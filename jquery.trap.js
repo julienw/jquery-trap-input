@@ -179,9 +179,7 @@ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.
 
                 return attributeNode && attributeNode.specified ?
                     parseInt( attributeNode.value, 10 ) :
-                    rfocusable.test( elem.nodeName ) || rclickable.test( elem.nodeName ) && elem.href ?
-                        0 :
-                        undefined;
+                    undefined;
             }
             
             function fixSizzleAttrHook() {
