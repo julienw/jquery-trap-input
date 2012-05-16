@@ -4,7 +4,7 @@ All rights reserved.
 
 Official repository: https://github.com/julienw/jquery-trap-input
 License is there: https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
-This is version 1.1.0.
+This is version 1.2.0.
 */
 
 (function( $, undefined ){
