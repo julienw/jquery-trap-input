@@ -3,7 +3,7 @@ jQuery trap input plugin
 The jQuery trap input plugin implements input trapping as described by
 the Web Accessibility Initiative.
 
-Why is this useful ?
+Why this is useful
 ----
 As explained in [the W3C document aria-practices in the WAI](http://www.w3.org/WAI/PF/aria-practices/#modal_dialog),
 modal dialogs should trap the keyboard input.
@@ -82,6 +82,12 @@ Here is a simple example
 ```
 
 See the [examples](http://julienw.github.com/jquery-trap-input/examples/) directory for some more examples.
+
+Known problems
+-----
+As of version 1.2.0, we got report about a problem in Internet Explorer 9.
+
+Version 1.1.0 had problems with IE6 and IE7 which got fixed in version 1.2.0
 
 Useful links
 ----
