@@ -85,9 +85,9 @@ See the [examples](http://julienw.github.com/jquery-trap-input/examples/) direct
 
 Known problems
 -----
-As of version 1.2.0, we got report about a problem in Internet Explorer 9.
-
 Version 1.1.0 had problems with IE6 and IE7 which got fixed in version 1.2.0
+
+We don't support Opera's navigation shortcuts.
 
 Useful links
 ----
