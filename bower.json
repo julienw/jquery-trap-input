@@ -1,0 +1,31 @@
+{
+  "name": "jquery-trap-input",
+  "version": "1.2.0",
+  "homepage": "https://github.com/julienw/jquery-trap-input",
+  "author": {
+    "name": "Julien Wajsberg",
+    "url": "http://everlong.org/"
+  },
+  "licenses": [
+    {
+      "type": "MIT-like",
+      "url": "LICENSE.txt"
+    }
+  ],
+  "description": "The jQuery trap input plugin implements input trapping as described by the Web Accessibility Initiative.",
+  "main": "jquery.trap.js",
+  "keywords": [
+    "jquery",
+    "Accessibility",
+    "trap",
+    "modal"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "examples",
+    "lib",
+    "website"
+  ]
+}
